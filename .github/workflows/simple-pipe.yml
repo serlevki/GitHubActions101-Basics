@@ -60,7 +60,7 @@ jobs:
           echo "VAR2 = ${{ env.VAR2 }}"
           
       - name : Print supe local env variable
-        run:
+        run: echo "This is local variable $LOCAL_VAR1"
         env:
           LOCAL_VAR1: "I'm super local var"                  
           
