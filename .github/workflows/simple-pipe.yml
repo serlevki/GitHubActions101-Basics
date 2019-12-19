@@ -17,7 +17,7 @@ on:
 
 jobs:
   my_testing:
-    runs_on: [ubuntu-latest]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Printing from test job
         run: echo "This message been printed from test job"
