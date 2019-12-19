@@ -1,0 +1,70 @@
+#-------------------------------------
+#GitHubActions101-Basics
+#
+#Designed by Serhii Levkivskiy 2019
+#-------------------------------------
+
+
+name: MyGitHubActions-Basics
+env:
+  APLICATION_NAME     : "MyFlaskApp"
+  DEPLOY_PACKAGE_NAME : "flask-app-ver-${{ github.sha }}"
+  
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  my_testing:
+    runs_on: [ubuntu-latest]
+    steps:
+      - name: Printing from test job
+        run: echo "This message been printed from test job"
+      
+      - name: Execute few commands
+        run: 
+          echo "Message 1"
+          echo "Printing GLOBAL ENV variables ${{ env.DEPLOY_PACKAGE_NAME }}"
+      
+      - name: List Current Folder
+        run:
+          ls -la
+          
+      - name: Clone repo
+        uses: actions/checkout@v1
+        run: ls -la
+  
+  my_deploy:
+    runs-on: [ubuntu-latest]
+    needs: [my_testing]
+    
+    env:
+      VAR1: "Job variable 1"
+      VAR2: "Job variable 2"
+    
+    steps: 
+      - name: Print some message from deploy job
+        run: echo "Message from deploy"
+      
+      - name: List of current folder
+        run:  ls -la
+        
+      - name: Print some info
+        run: echo "App name is ${{ env.APPLICATION.NAME }}"
+        
+      - name : Printing some more info
+        run: 
+          echo "VAR1 = ${{ env.VAR1 }}"
+          echo "VAR2 = ${{ env.VAR2 }}"
+          
+      - name : Print supe local env variable
+        run:
+        env:
+          LOCAL_VAR1: "I'm super local var"                  
+          
+      - name : Check if command exist
+        run: aws --version
+        
+      - name : Check if zip exist
+        run: zip --version
