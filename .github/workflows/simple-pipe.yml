@@ -33,7 +33,8 @@ jobs:
           
       - name: Clone repo
         uses: actions/checkout@v1
-        run: ls -la
+        run: 
+          ls -la
   
   my_deploy:
     runs-on: [ubuntu-latest]
